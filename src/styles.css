@@ -1,9 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~bootstrap/dist/css/bootstrap.min.css";
 @import "~font-awesome/css/font-awesome.min.css";
-
-
-body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, button, input, textarea, p, blockquote, th, td {
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+code,
+form,
+fieldset,
+legend,
+button,
+input,
+textarea,
+p,
+blockquote,
+th,
+td {
   margin: 0;
   padding: 0;
 }
@@ -13,12 +36,11 @@ body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fiel
   box-sizing: border-box;
 }
 body {
-  font-family: Arimo,Arial,Helvetica,'lucida grande',sans-serif;
-  letter-spacing: -.03em;
+  font-family: Arimo, Arial, Helvetica, 'lucida grande', sans-serif;
+  letter-spacing: -0.03em;
   font-size: 16px;
   margin: 0 auto;
   background-color: #1d1d1d;
-
   -webkit-font-smoothing: antialiased;
   color: #fff;
   background: url(assets/patrick.jpg) no-repeat;
@@ -26,7 +48,8 @@ body {
   background-attachment: fixed;
   overflow-x: hidden;
 }
-*:before, *:after {
+*:before,
+*:after {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;

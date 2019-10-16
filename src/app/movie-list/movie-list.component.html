@@ -1,0 +1,12 @@
+<app-welcome-note></app-welcome-note>
+<div class='row d-flex justify-content-center'>
+  <label for="" class="text">Filter by Name:
+  </label>
+  <input type="text" [(ngModel)]="listFilter">
+</div>
+<div class="movie-list">
+  <app-movie-card [movie]="movie" *ngFor="let movie of filteredMovies"
+
+  ></app-movie-card>
+</div>
+<app-footer></app-footer>

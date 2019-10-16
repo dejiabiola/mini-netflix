@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="image-container">
+    <img [src]="movie.image.url" [alt]="movie.title" width="350" height="450">
+    <button type="button" class="btn btn-primary main">Watch Movie</button>
+  </div>
+  <div class="text-container">
+    <p>{{movie.title}}</p>
+    <p>{{movie.releaseYear}}</p>
+    <p>{{movie.genre}}</p>
+  </div>
+</div>
+<div class="bottom-container">
+  <div class="left-float">
+
+  </div>
+  <div class="right-float">
+
+  </div>
+</div>
+<button type="button" class="btn btn-primary btn-large back" (click)='onBack()'>Back</button>
+<app-footer></app-footer>
