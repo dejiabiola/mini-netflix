@@ -58,6 +58,7 @@ import { AuthService } from '../user/auth.service';
     }
     .text {
       padding-left: 50px;
+      padding-right: 20px;
       background-color: black;
       width: 100%;
       margin-right: 0px !important;
