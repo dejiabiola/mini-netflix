@@ -49,10 +49,7 @@ import { AuthService } from '../user/auth.service';
       width: 100%;
     }
 
-    .image {
 
-      margin-left: 0;
-    }
     img {
       margin-left: 0;
     }
