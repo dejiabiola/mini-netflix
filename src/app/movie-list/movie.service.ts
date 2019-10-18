@@ -1,7 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { map, tap, catchError } from 'rxjs/operators';
+import { SESSION_STORAGE, StorageService } from 'ngx-webstorage-service';
+
 
 
 @Injectable({
@@ -9,25 +11,27 @@ import { map, tap, catchError } from 'rxjs/operators';
 })
 export class MovieService {
   url: string = "https://guides.peruzal.com/xamarin-forms-guide/files/movies.json";
+  STORAGE_KEY = 'local_favourite';
+  currentFavouriteMovies;
 
-  getStuff(): Observable<any[]> {
-    return this.http.get<any[]>(this.url)
-    .pipe(
-      tap(data => console.log('ALL:' + JSON.stringify(data))),
-      catchError(this.handleError)
-    );
-  }
+  // getStuff(): Observable<any[]> {
+  //   return this.http.get<any[]>(this.url)
+  //   .pipe(
+  //     tap(data => console.log('ALL:' + JSON.stringify(data))),
+  //     catchError(this.handleError)
+  //   );
+  // }
 
-  private handleError(err: HttpErrorResponse) {
-    let errorMessage = '';
-    if (err.error instanceof ErrorEvent) {
-      errorMessage = `An error occured ${err.error.message}`;
-    } else {
-      errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
-    }
-    console.error(errorMessage);
-    return throwError(errorMessage);
-  }
+  // private handleError(err: HttpErrorResponse) {
+  //   let errorMessage = '';
+  //   if (err.error instanceof ErrorEvent) {
+  //     errorMessage = `An error occured ${err.error.message}`;
+  //   } else {
+  //     errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
+  //   }
+  //   console.error(errorMessage);
+  //   return throwError(errorMessage);
+  // }
 
   getMovie(id: string): any {
     return Movies.find(movie => movie.objectId === id);
@@ -37,13 +41,45 @@ export class MovieService {
   getMovies(): any[] {
     return Movies;
   }
-  constructor(private http: HttpClient) { }
+
+  addFavourite(id: string){
+    this.currentFavouriteMovies = this.storage.get(this.STORAGE_KEY) || [];
+    if (this.currentFavouriteMovies.find(movie => movie.objectId === id)) {
+      return;
+    } else {
+      let movie = Movies.find(m => m.objectId === id);
+      movie.liked = true;
+      this.currentFavouriteMovies.push(movie);
+      this.storage.set(this.STORAGE_KEY, this.currentFavouriteMovies);
+      console.log(this.storage.get(this.STORAGE_KEY) || 'LocaL storage is empty');
+    }
+  }
+
+
+  removeFavourite(id: string, like: boolean) {
+    this.currentFavouriteMovies = this.storage.get(this.STORAGE_KEY);
+    let movie = Movies.find(movie => movie.objectId === id);
+    movie.liked = false;
+    this.currentFavouriteMovies = this.currentFavouriteMovies.filter(movie => movie.objectId !== id);
+    this.storage.set(this.STORAGE_KEY, this.currentFavouriteMovies);
+  }
+
+  getFavourite() {
+    return this.storage.get(this.STORAGE_KEY) || [];
+  }
+
+
+
+
+  constructor(private http: HttpClient,
+              @Inject(SESSION_STORAGE) private storage: StorageService) { }
 }
 
 
 const Movies: any[] = [
   {
     objectId: 'n4mV28e42t',
+    liked: false,
     image: {
     __type: 'File',
     name: 'c6b7a11f-d1cb-427f-b784-4475f033fc48_1.jpg',
@@ -334,7 +370,7 @@ const Movies: any[] = [
           Director: "Anthony Russo, Joe Russo",
           Writer: "Christopher Markus, Stephen McFeely, Stan Lee (based on the Marvel comics by), Jack Kirby (based on the Marvel comics by), Jim Starlin (comic book)",
           Actors: "Bradley Cooper, Brie Larson, Chris Hemsworth, Chris Evans",
-          Plot: "After the devastating events of Avengers: Infinity War (2018), the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to undo Thanos' actions and restore order to the universe.",
+          description: "After the devastating events of Avengers: Infinity War (2018), the universe is in ruins. With the help of remaining allies, the Avengers assemble once more in order to undo Thanos' actions and restore order to the universe.",
           Language: "English",
           Country: "USA",
           Awards: "N/A",
@@ -346,13 +382,12 @@ const Movies: any[] = [
           Metascore: "N/A",
           imdbRating: "N/A",
           imdbVotes: "N/A",
-          imdbID: "tt4154796",
           Type: "movie",
           DVD: "N/A",
           BoxOffice: "N/A",
           Production: "Marvel Studios",
           Website: "N/A",
           Response: "True"
-        }
+        },
 
 ];

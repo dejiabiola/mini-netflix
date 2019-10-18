@@ -13,6 +13,11 @@ import { Router } from '@angular/router';
             <h5 class="card-title text-center">Sign In</h5>
             <form class="form-signin" #loginForm= "ngForm" (ngSubmit)="login(loginForm.value)" ngNativeValidate>
               <div class="form-label-group">
+                <em *ngIf="loginForm.controls.firstName?.invalid && loginForm.controls.firstName?.touched">Required</em>
+                <input required (ngModel)="firstName" name="firstName" type="text" id="inputEmail" class="form-control" placeholder="First name" required>
+                <label for="inputEmail"></label>
+                </div>
+              <div class="form-label-group">
                 <em *ngIf="loginForm.controls.email?.invalid && loginForm.controls.email?.touched">Required</em>
                 <input required (ngModel)="email" name="email" type="email" id="inputEmail" class="form-control" placeholder="Email address" required>
                 <label for="inputEmail"></label>
@@ -42,6 +47,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.less']
 })
 export class LoginComponent implements OnInit {
+  firstName: string;
   email: string;
   password: string;
 
@@ -51,7 +57,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(formValues) {
-    this.authService.loginUser(formValues.email, formValues.password);
+    this.authService.loginUser(formValues.firstName, formValues.email, formValues.password);
     this.router.navigate(['home']);
   }
 
@@ -59,8 +65,5 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['home']);
   }
 
-  validateEmail() {
-    return
-  }
 
 }

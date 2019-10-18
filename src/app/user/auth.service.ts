@@ -8,10 +8,10 @@ import { last } from 'rxjs/operators';
 })
 export class AuthService {
   currentUser: IUser;
-  loginUser(email: string, password: string) {
+  loginUser(firstName:string, email: string, password: string) {
     this.currentUser = {
       id: 3,
-      firstName: 'Deji',
+      firstName: firstName,
       lastName: 'Abiola',
       userName: 'deji_abiola',
       email: email

@@ -15,14 +15,15 @@ import { Router } from '@angular/router';
     <hr>
     <div class="col-md-4">
       <form autocomplete="off" [formGroup]="profileForm" (ngSubmit)="saveProfile(profileForm.value)">
-        <div class="form-group">
+        <div class="form-group" [ngClass]="{'error': !validateFirstName()}">
           <label for="firstName">First Name:</label>
-          <em>Required</em>
+          <em *ngIf="!validateFirstName() && profileForm.controls.firstName?.errors.required">Required</em>
+          <em *ngIf="!validateFirstName() && profileForm.controls.firstName?.errors.pattern">Firstname must start with a letter</em>
           <input  formControlName="firstName" id="firstName" type="text" class="form-control" placeholder="First Name..." />
         </div>
-        <div class="form-group">
+        <div class="form-group" [ngClass]="{'error': !validateLastName()}">
           <label for="lastName">Last Name:</label>
-          <em>Required</em>
+          <em *ngIf="!validateLastName()">Required</em>
           <input  formControlName="lastName" id="lastName" type="text" class="form-control" placeholder="Last Name..." />
         </div>
 
@@ -61,16 +62,18 @@ import { Router } from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
   profileForm: FormGroup;
+  private firstName: FormControl;
+  private lastName: FormControl;
 
 
   constructor(private auth: AuthService, private router: Router ) {}
 
   ngOnInit() {
-    const firstName = new FormControl(this.auth.currentUser.firstName, Validators.required);
-    const lastName = new FormControl(this.auth.currentUser.lastName, Validators.required);
+    this.firstName = new FormControl(this.auth.currentUser.firstName, [Validators.required, Validators.pattern('[a-zA-Z].*')]);
+    this.lastName = new FormControl(this.auth.currentUser.lastName, Validators.required);
     this.profileForm = new FormGroup({
-      firstName: firstName,
-      lastName: lastName
+      firstName: this.firstName,
+      lastName: this.lastName
     })
   }
 
@@ -83,6 +86,14 @@ export class ProfileComponent implements OnInit {
 
   cancel() {
     this.router.navigate(['home']);
+  }
+
+  validateLastName() {
+    return this.lastName.valid || this.lastName.untouched;
+  }
+
+  validateFirstName() {
+    return this.firstName.valid || this.firstName.untouched;
   }
 
 }

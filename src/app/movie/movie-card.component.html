@@ -1,14 +1,16 @@
-<div id="container">
-  <div class=" col-xs-10 col-sm-5" id="browse-movie-wrap">
-    <a href="#" class="browse-movie-link" [routerLink]="['/movie', movie.objectId]">
-      <figure>
-      <img class="img-responsive" [src]="movie.image.url" [alt]="movie.title" width="210" height="315">
-      </figure>
-    </a>
-    <div class="browse-movie-bottom">
-      <a href="#" class="browse-movie-title">{{ movie.title }}</a>
-      <div class="browse-movie-year">{{ movie.releaseYear }}</div>
+
+<div class=" col-xs-10 col-sm-5" id="browse-movie-wrap">
+  <div  class="browse-movie-link">
+    <img class="img-responsive" [src]="movie.image.url || movie.poster" [alt]="movie.title" width="200" height="315">
+  </div>
+  <div class="browse-movie-bottom">
+    <a href="#" class="browse-movie-title">{{ movie.title }}</a>
+    <span class="browse-movie-year">{{ movie.releaseYear }}</span>
+    <div class="d-flex">
+        <button class="btn btn-danger" [routerLink]="['/movie', movie.objectId]">Details</button>
+        <app-like [movieId]='movie.objectId' [movieLiked]="movie?.liked"></app-like>
     </div>
   </div>
 </div>
+
 

@@ -10,6 +10,7 @@ export class MovieListComponent implements OnInit {
   movies: any[];
   filteredMovies: any[];
   errorMessage: string = '';
+  favouriteMovies: any[];
   // tslint:disable-next-line: variable-name
   _listFilter: string = '';
   get listFilter(): string {
@@ -29,6 +30,7 @@ export class MovieListComponent implements OnInit {
 
   constructor(private movieService: MovieService) { }
 
+
   ngOnInit() {
     // this.movieService.getStuff().subscribe({
     //   next: data => {
@@ -40,6 +42,8 @@ export class MovieListComponent implements OnInit {
     // });
     this.movies = this.movieService.getMovies();
     this.filteredMovies = this.movies;
-
+  }
+  logClick() {
+    console.log('clicked');
   }
 }

@@ -1,16 +1,14 @@
+
+
+
+
 #browse-movie-wrap {
-  margin-bottom: 15px;
-  transition: transform .2s;
-}
-#browse-movie-wrap:hover {
-  transform: scale(1.15);
-  z-index: 1;
+  margin-bottom: 50px;
+  display: inline-block;
 }
 
-#container {
-  display: inline-block;
-  margin: 10px;
-}
+
+
 
 .browse-movie-link {
   display: inline-block;
@@ -19,9 +17,6 @@
   transition: border .15s ease-in-out;
   -moz-transition: border .15s ease-in-out;
   -webkit-transition: border .15s ease-in-out;
-  border-radius: 4px;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
   font-size: 24px;
   height: 325px;
 }
@@ -36,9 +31,32 @@ a {
   background-color: transparent;
 }
 
+.d-flex {
+  display: flex;
+  justify-content: space-between;
+  padding-right: 10px;
+  margin-top: 3px;
+}
+app-like {
+  padding-top: 5px;
+}
+button {
+  font-family: "times new roman",'Oswald', sans-serif;
+  width: 80px;
+  height: 35px;
+  margin-top: 3px;
+  padding: 3px;
+  background: #E50B13;
+  transition: all 1s;
+}
 
-.browse-movie-title, .browse-movie-title:focus, #comments-box a {
-  color: #fff;
+button:hover {
+  transform: scale(1.1);
+}
+
+
+.browse-movie-title, .browse-movie-title:focus {
+  color: black;
   font-weight: 700;
   display: block;
   transition: color .15s ease-in-out;
@@ -55,9 +73,14 @@ a {
   padding: 0 5px;
   max-width: 220px;
   text-align: left;
+  background-color: white;
+  width: 210px;
+  min-height: 100px;
 }
 .browse-movie-year {
   font-size: .85em;
   color: #919191;
 }
+
+
 

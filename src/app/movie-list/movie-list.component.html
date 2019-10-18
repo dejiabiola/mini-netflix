@@ -5,7 +5,7 @@
   <input type="text" [(ngModel)]="listFilter">
 </div>
 <div class="movie-list">
-  <app-movie-card [movie]="movie" *ngFor="let movie of filteredMovies"
+  <app-movie-card [movie]="movie" *ngFor="let movie of filteredMovies" (clicked)="logClick()"
 
   ></app-movie-card>
 </div>

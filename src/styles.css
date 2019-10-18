@@ -40,12 +40,8 @@ body {
   letter-spacing: -0.03em;
   font-size: 16px;
   margin: 0 auto;
-  background-color: #1d1d1d;
   -webkit-font-smoothing: antialiased;
-  color: #fff;
-  background: url(assets/patrick.jpg) no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
+  background-color: #141414 !important;
   overflow-x: hidden;
 }
 *:before,

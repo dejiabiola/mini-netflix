@@ -1,21 +1,24 @@
 <div class="container">
   <div class="image-container">
-    <img [src]="movie.image.url" [alt]="movie.title" width="350" height="450">
+    <img [src]="movie.image.url" [alt]="movie.title" width="400" height="600">
     <button type="button" class="btn btn-primary main">Watch Movie</button>
   </div>
   <div class="text-container">
-    <p>{{movie.title}}</p>
-    <p>{{movie.releaseYear}}</p>
-    <p>{{movie.genre}}</p>
+    <p class="movie-title">{{movie.title}}</p>
+    <p>{{movie.description}}</p>
+    <p>Year: {{movie.releaseYear}}</p>
+    <p>Genre: {{movie.genre}}</p>
+    <p>Language: {{movie.Language}}</p>
+    <p>Rating: {{movie.rating}}/10</p>
   </div>
+  <!-- <div class="more-like d-flex">
+    <app-movie-card></app-movie-card>
+  </div> -->
 </div>
 <div class="bottom-container">
-  <div class="left-float">
-
-  </div>
-  <div class="right-float">
-
-  </div>
+    <p>Written by: {{movie.Writer}}</p>
+    <p>Directed by: {{movie.Director}}</p>
+    <p>Actors: {{movie.Actors}}</p>
 </div>
-<button type="button" class="btn btn-primary btn-large back" (click)='onBack()'>Back</button>
-<app-footer></app-footer>
+<span type="button" class=" back" (click)='onBack()'><fa-icon [icon]="faBack" size="3x"></fa-icon></span>
+<!-- <app-footer></app-footer> -->
