@@ -12,7 +12,9 @@
   margin-right: 20px;
 }
 input {
-  width: 250px;
+  width: 500px;
   background-color: transparent;
   padding: 10px;
+  margin-right: 10px;
+  color: white;
 }

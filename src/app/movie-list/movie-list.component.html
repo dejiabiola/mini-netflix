@@ -1,8 +1,9 @@
 <app-welcome-note></app-welcome-note>
 <div class='row d-flex justify-content-center'>
-  <label for="" class="text">Filter by Name:
+  <label for="" class="text">
   </label>
-  <input type="text" [(ngModel)]="listFilter">
+  <input type="text" [(ngModel)]="listFilter" placeholder="Search for a movie...">
+  <button class="btn btn-primary">Search</button>
 </div>
 <div class="movie-list">
   <app-movie-card [movie]="movie" *ngFor="let movie of filteredMovies" (clicked)="logClick()"
