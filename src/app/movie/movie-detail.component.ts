@@ -11,9 +11,15 @@ import { faArrowAltCircleLeft as faBack } from '@fortawesome/free-solid-svg-icon
 export class MovieDetailComponent implements OnInit {
   movie: any;
   faBack = faBack;
+  imageUrl: string = "https://image.tmdb.org/t/p/original";
   onBack(): void {
     this.router.navigate(['/home']);
   }
+
+  setImage() {
+    return `${this.imageUrl}${this.movie.poster_path}`;
+  }
+
   constructor(private router: Router,
               private route: ActivatedRoute,
               private movieService: MovieService ) { }
@@ -22,12 +28,19 @@ export class MovieDetailComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.getProduct(id);
+      console.log("id:", id);
+      // console.log(typeof(id))
     }
   }
 
   getProduct(id: string) {
-    this.movie = this.movieService.getMovie(id);
-    console.log(this.movie);
+  this.movieService.getMovie(id).subscribe({
+    next: data => {
+      this.movie = data;
+      console.log(data.poster_path);
+    }
+  });
+
   }
 
 }

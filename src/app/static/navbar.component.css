@@ -11,3 +11,6 @@ ul li > a.active {
 .navbar-brand:hover {
   color: #C82333;
 }
+.navbar-brand:clicked {
+  color: #C82333;
+}

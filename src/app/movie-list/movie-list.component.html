@@ -2,11 +2,12 @@
 <div class='row d-flex justify-content-center'>
   <label for="" class="text">
   </label>
-  <input type="text" [(ngModel)]="listFilter" placeholder="Search for a movie...">
-  <button class="btn btn-primary">Search</button>
+  <input type="text" (ngModel)="searchWord" placeholder="Search for a movie...">
+  <button class="btn btn-primary" (click)="searchMovie()">Search</button>
 </div>
+<!-- <p *ngIf=>Movies{{}}</p> -->
 <div class="movie-list">
-  <app-movie-card [movie]="movie" *ngFor="let movie of filteredMovies" (clicked)="logClick()"
+  <app-movie-card [movie]="movie" *ngFor="let movie of movies" (clicked)="logClick()"
 
   ></app-movie-card>
 </div>

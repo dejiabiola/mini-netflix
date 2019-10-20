@@ -10,37 +10,40 @@ import { SESSION_STORAGE, StorageService } from 'ngx-webstorage-service';
   providedIn: 'root'
 })
 export class MovieService {
-  url: string = "https://guides.peruzal.com/xamarin-forms-guide/files/movies.json";
+  baseurl: string = "https://api.themoviedb.org/3/";
+  api: string = "?api_key=dfa4dc3c982505ce0371c16aa63b6f02";
+  getMovieUrl: string = "https://api.themoviedb.org/3/movie/";
   STORAGE_KEY = 'local_favourite';
   currentFavouriteMovies;
 
-  // getStuff(): Observable<any[]> {
-  //   return this.http.get<any[]>(this.url)
-  //   .pipe(
-  //     tap(data => console.log('ALL:' + JSON.stringify(data))),
-  //     catchError(this.handleError)
-  //   );
-  // }
 
-  // private handleError(err: HttpErrorResponse) {
-  //   let errorMessage = '';
-  //   if (err.error instanceof ErrorEvent) {
-  //     errorMessage = `An error occured ${err.error.message}`;
-  //   } else {
-  //     errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
-  //   }
-  //   console.error(errorMessage);
-  //   return throwError(errorMessage);
-  // }
 
-  getMovie(id: string): any {
-    return Movies.find(movie => movie.objectId === id);
+  getStuff(): Observable<any> {
+    return this.http.get<any>(`${this.baseurl}movie/popular${this.api}`)
+    .pipe(
+      tap(data => console.log('ALL:')),
+      catchError(this.handleError)
+    );
   }
 
-
-  getMovies(): any[] {
-    return Movies;
+  getMovie(id): Observable<any> {
+    return this.http.get<any>(`${this.getMovieUrl}${id}${this.api}`)
+    .pipe(
+      tap(data => console.log(data))
+      ,catchError(this.handleError));
   }
+
+  private handleError(err: HttpErrorResponse) {
+    let errorMessage = '';
+    if (err.error instanceof ErrorEvent) {
+      errorMessage = `An error occured ${err.error.message}`;
+    } else {
+      errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
+    }
+    console.error(errorMessage);
+    return throwError(errorMessage);
+  }
+
 
   addFavourite(id: string){
     this.currentFavouriteMovies = this.storage.get(this.STORAGE_KEY) || [];

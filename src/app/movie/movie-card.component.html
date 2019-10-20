@@ -1,13 +1,13 @@
 
 <div class=" col-xs-10 col-sm-5" id="browse-movie-wrap">
   <div  class="browse-movie-link">
-    <img class="img-responsive" [src]="movie.image.url || movie.poster" [alt]="movie.title" width="200" height="315">
+    <img class="img-responsive" [src]="setImage()" [alt]="movie.title" width="200" height="315">
   </div>
   <div class="browse-movie-bottom">
-    <a href="#" class="browse-movie-title">{{ movie.title }}</a>
-    <span class="browse-movie-year">{{ movie.releaseYear }}</span>
+    <a href="#" class="browse-movie-title">{{ movie?.title }}</a>
+    <span class="browse-movie-year">{{ movie?.release_date }}</span>
     <div class="d-flex">
-        <button class="btn btn-danger" [routerLink]="['/movie', movie.objectId]">Details</button>
+        <button class="btn btn-danger" [routerLink]="['/movie', movie.id]">Details</button>
         <app-like [movieId]='movie.objectId' [movieLiked]="movie?.liked"></app-like>
     </div>
   </div>

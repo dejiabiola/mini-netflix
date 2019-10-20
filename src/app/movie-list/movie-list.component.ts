@@ -7,41 +7,34 @@ import { MovieService } from './movie.service';
   styleUrls: ['./movie-list.component.less']
 })
 export class MovieListComponent implements OnInit {
-  movies: any[];
-  filteredMovies: any[];
+  movies: object;
   errorMessage: string = '';
   favouriteMovies: any[];
-  // tslint:disable-next-line: variable-name
-  _listFilter: string = '';
-  get listFilter(): string {
-    return this._listFilter;
-  }
-  set listFilter(value: string) {
-    this._listFilter = value;
-    this.filteredMovies = this._listFilter ? this.performFilter(this._listFilter) : this.movies;
-  }
+  searchWord: string;
 
-  performFilter(filterBy: string): any {
-    filterBy = filterBy.toLocaleLowerCase();
-    return this.movies.filter((movie: any) =>
-      movie.title.toLocaleLowerCase().indexOf(filterBy) !== -1);
-  }
+
 
 
   constructor(private movieService: MovieService) { }
 
+  // searchMovie() {
+  //   this.movieService.searchMovie().subscribe({
+  //     next: data => {
+  //       const {results} = data;
+  //       this.movies = results;
+  //     },
+  //     error: err => this.errorMessage = err
+  //   });
+  // }
 
   ngOnInit() {
-    // this.movieService.getStuff().subscribe({
-    //   next: data => {
-    //     const [result] = data;
-    //     this.movies = result;
-    //     this.filteredMovies = this.movies;
-    //   },
-    //   error: err => this.errorMessage = err
-    // });
-    this.movies = this.movieService.getMovies();
-    this.filteredMovies = this.movies;
+    this.movieService.getStuff().subscribe({
+      next: data => {
+        const {results} = data;
+        this.movies = results;
+      },
+      error: err => this.errorMessage = err
+    });
   }
   logClick() {
     console.log('clicked');
