@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
       Watch High-Quality Movies Online
     </h1>
     <p>
-      Welcome to the official Flingo website. Here you can stream quality movie content seamlessly.
+      Welcome to the official Netapp website. Here you can stream quality movie content seamlessly.
     </p>
     <hr>
   `,
@@ -28,16 +28,23 @@ import { Component, OnInit } from '@angular/core';
         text-align: center;
         font-size: 1em;
         color: #ccc;
-        width: 650px;
+        max-width: 650px;
         margin: 0 auto;
         line-height: 21px;
         margin-bottom: 30px;
 
       }
       hr{
-        width: 80%;
+        max-width: 80%;
         background-color: white;
         opacity: 0.4;
+      }
+
+      @media screen and (max-width:600px) {
+        h1 {
+          font-size: 2em;
+          text-align: center;
+        }
       }
     `
   ]

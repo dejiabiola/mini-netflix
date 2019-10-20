@@ -104,6 +104,9 @@ import { Component, OnInit } from '@angular/core';
 
     @media (min-width: 768px) {
       .footer-bs .footer-nav, .footer-bs .footer-social, .footer-bs .footer-ns { border-left:solid 1px rgba(255,255,255,0.10); }
+      .footer-bs {
+        margin-right: 0;
+      }
     }
   `]
 })

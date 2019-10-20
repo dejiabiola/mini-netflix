@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MovieService } from '../movie-list/movie.service';
-import { faArrowAltCircleLeft as faBack } from '@fortawesome/free-solid-svg-icons';
+import { faArrowAltCircleDown as faDown } from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-movie-detail',
@@ -10,11 +11,10 @@ import { faArrowAltCircleLeft as faBack } from '@fortawesome/free-solid-svg-icon
 })
 export class MovieDetailComponent implements OnInit {
   movie: any;
-  faBack = faBack;
+  moreDetail;
+  faDown = faDown;
   imageUrl: string = "https://image.tmdb.org/t/p/original";
-  onBack(): void {
-    this.router.navigate(['/home']);
-  }
+
 
   setImage() {
     return `${this.imageUrl}${this.movie.poster_path}`;
@@ -28,8 +28,6 @@ export class MovieDetailComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.getProduct(id);
-      console.log("id:", id);
-      // console.log(typeof(id))
     }
   }
 
@@ -37,10 +35,43 @@ export class MovieDetailComponent implements OnInit {
   this.movieService.getMovie(id).subscribe({
     next: data => {
       this.movie = data;
-      console.log(data.poster_path);
+      this.getOmdb(this.movie.imdb_id);
     }
   });
 
   }
 
+  getOmdb(imdb_id: string) {
+    this.movieService.getOmdb(imdb_id).subscribe({
+      next: data => {
+        this.moreDetail = data;
+      }
+    })
+  }
+
+  onClick(){
+    let x = document.querySelector("#movie-details");
+    if (x){
+        x.scrollIntoView();
+    }
+}
+
+  setBackgroundImage(): object {
+    const styles = {
+      'background-size': 'cover',
+      'background-image': `url(${this.imageUrl}${this.movie.backdrop_path})`,
+      'background-repeat': 'no-repeat',
+      'background-attachment': 'fixed',
+      height: '100vh'
+    };
+    return styles;
+  }
+
+  homepage() {
+    if(this.movie.homepage){
+      return this.movie.homepage;
+    } else {
+      return;
+    }
+  }
 }

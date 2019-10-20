@@ -7,17 +7,17 @@ import { MovieService } from '../movie-list/movie.service';
   providedIn: 'root'
 })
 export class MovieDetailGuard implements CanActivate {
+  valid: any = false;
   constructor(private router: Router, private movieService: MovieService) {}
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const id = next.url[1].path;
-    const valid = this.movieService.getMovie(id);
-    if (!valid) {
-      alert('Invalid movie Id');
-      this.router.navigate(['/home']);
-      return false;
-    }
+    this.movieService.getMovie(id).subscribe({
+      next: data => {
+        this.valid = data;
+      }
+    });
     return true;
   }
 }

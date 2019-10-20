@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { MovieService } from '../movie-list/movie.service';
 import { AuthService } from '../user/auth.service';
 
@@ -13,14 +13,13 @@ import { AuthService } from '../user/auth.service';
       </div>
       <div *ngFor="let movie of favouriteMovies" class="container">
         <div class="image">
-          <img [src]="movie.image.url" [alt]="movie.title" height="400px" width="300px">
+          <img [src]="setImage(movie)" [alt]="movie.title" height="400px" width="300px" [routerLink]="['/movie', movie.id]">
         </div>
         <div class="text">
-          <p class="title">{{ movie.title }}</p>
-          <p>{{  movie.description }}</p>
-          <p>Year: {{ movie.releaseYear }}</p>
-          <p>Genre: {{ movie.genre }}</p>
-          <p>Rating: {{ movie.rating }}/10</p>
+          <p class="title">{{ movie.Title || movie?.title }}</p>
+          <p class="year">Year:  {{ movie?.release_date || setDate(movie) }}</p>
+          <button  (click)="onRemove(movie.id)" class="btn btn-primary">Remove</button>
+
         </div>
       </div>
     </section>
@@ -52,7 +51,14 @@ import { AuthService } from '../user/auth.service';
 
     img {
       margin-left: 0;
+      cursor: pointer;
+      transition: all 1s;
     }
+
+    img:hover {
+      transform: scale(1.1);
+    }
+
     .text {
       padding-left: 50px;
       padding-right: 20px;
@@ -81,15 +87,56 @@ import { AuthService } from '../user/auth.service';
     .empty {
       text-align: center;
     }
+
+    @media screen and (max-width: 1336px) {
+      .container {
+        margin-left: 20px !important;
+      }
+    }
+
+    @media screen and (max-width: 900px) {
+      .container {
+        display: block;
+        margin-bottom: 100px;
+      }
+      .text {
+        width: 300px;
+        padding-bottom: 30px;
+        padding-left: 20px;
+      }
+      .title {
+        font-size: 1.4rem;
+        text-overflow: ellipsis;
+      }
+      .year {
+        font-size: .8rem;
+      }
+    }
   `]
 })
 export class FavouriteComponent implements OnInit {
-  favouriteMovies: any[];
+  favouriteMovies: any;
+  movie;
+  imageUrl: string = "https://image.tmdb.org/t/p/original";
   constructor(private movieService: MovieService,
               public auth: AuthService) { }
 
   ngOnInit() {
     this.favouriteMovies = this.movieService.getFavourite();
+  }
+
+
+  setId() {
+    if (this.movie.id) {
+      return this.movie.id;
+    }
+    return this.movie.imdbID;
+  }
+  onRemove(id) {
+    alert('Are you sure you want to want to remove this movie from your list?');
+    this.movieService.removeFavourite(id);
+    this.favouriteMovies = this.movieService.getFavourite();
+
   }
 
   getList() {
@@ -98,4 +145,19 @@ export class FavouriteComponent implements OnInit {
     }
   }
 
+  setImage(movie) {
+    if (movie.poster_path) {
+      return `${this.imageUrl}${movie.poster_path}`;
+    }
+    else {
+      return movie.Poster;
+    }
+  }
+
+  setDate(movie) {
+    if (movie.release_date) {
+      const date = movie.release_date.split("-");
+      return date[0];
+    }
+  }
 }

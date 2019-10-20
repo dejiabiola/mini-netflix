@@ -7,23 +7,35 @@ import { faHeart as solidHeart } from '@fortawesome/free-solid-svg-icons';
   selector: 'app-like',
   template: `
   <span (click)="logClick()">
-    <fa-icon  [icon]="faHeart" *ngIf="!movieLiked" size="lg"></fa-icon>
-    <fa-icon  [icon]="solidHeart" *ngIf="movieLiked" class="red" size="lg"></fa-icon>
+    <button *ngIf="!woLike()" class="btn btn-outline-danger">Like</button>
+    <button   *ngIf="woLike()"  class="btn btn-danger" size="lg">Unlike</button>
 
   </span>
   `,
   styles: [`
-  fa-icon {
+  button {
     cursor: pointer;
     transition: all 1s;
     transform-origin: 50% 50%;
+    font-family: "times new roman",'Oswald', sans-serif;
+    width: 80px;
+    height: 35px;
+    margin-top: 3px;
+    padding: 3px;
+    border-radius: 0;
   }
-  fa-icon:hover {
-    transform: scale(1.2);
+  .btn-danger:hover {
+    transform: scale(1.1);
+    background-color: #DC3545;
+    color: white;
   }
-  .red {
-    color: red;
+
+  .btn-outline-danger:hover {
+    transform: scale(1.1);
+    background-color: white;
+    color: #DC3545;
   }
+  .
   `]
 })
 
@@ -34,13 +46,13 @@ export class LikeComponent implements OnInit {
   liked: boolean = false;
   @Input() movieId: string;
   @Input() movieLiked: boolean;
-  checkLiked;
+  favourites;
   movie;
   constructor(private movieService: MovieService) {
    }
 
   ngOnInit() {
-
+    this.favourites = this.movieService.getFavourite();
     }
 
   logClick() {
@@ -48,9 +60,19 @@ export class LikeComponent implements OnInit {
     if (this.liked === true) {
       this.movieService.addFavourite(this.movieId);
     } else {
-      this.movieService.removeFavourite(this.movieId, this.liked);
+      this.movieService.removeFavourite(this.movieId);
     }
   }
+
+  woLike() {
+    if (this.movieLiked === false) {
+      return false;
+    } else if (this.liked === true || this.movieLiked === true) {
+      return true;
+    }
+  }
+
+
 
 
 }

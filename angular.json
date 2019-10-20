@@ -34,7 +34,9 @@
               "node_modules/font-awesome/less/font-awesome.less",
               "node_modules/font-awesome/css/font-awesome.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ]
           },
           "configurations": {
             "production": {

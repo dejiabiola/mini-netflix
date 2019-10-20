@@ -4,11 +4,11 @@
     <img class="img-responsive" [src]="setImage()" [alt]="movie.title" width="200" height="315">
   </div>
   <div class="browse-movie-bottom">
-    <a href="#" class="browse-movie-title">{{ movie?.title }}</a>
-    <span class="browse-movie-year">{{ movie?.release_date }}</span>
+    <a href="#" class="browse-movie-title">{{ movie?.Title || movie?.title }}</a>
+    <span class="browse-movie-year">{{ movie?.Year || setDate() }}</span>
     <div class="d-flex">
-        <button class="btn btn-danger" [routerLink]="['/movie', movie.id]">Details</button>
-        <app-like [movieId]='movie.objectId' [movieLiked]="movie?.liked"></app-like>
+        <button class="btn btn-info" [routerLink]="['/movie', setId()]">Details</button>
+        <app-like [movieId]='movie?.id' [movieLiked]="checkLiked(movie)"></app-like>
     </div>
   </div>
 </div>

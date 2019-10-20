@@ -33,7 +33,9 @@ import { FavouriteComponent } from './movie/favourite.component';
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(AppRoutes),
+    RouterModule.forRoot(AppRoutes, {
+      anchorScrolling: "enabled"
+    }),
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,

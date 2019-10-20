@@ -7,6 +7,13 @@
   display: inline-block;
 }
 
+@media screen and (max-width: 600px) {
+
+  .container {
+    display: block;
+  }
+}
+
 
 
 
@@ -31,23 +38,27 @@ a {
   background-color: transparent;
 }
 
+app-like{
+  margin-right: 0 !important;
+}
+
 .d-flex {
   display: flex;
   justify-content: space-between;
-  padding-right: 10px;
+  // padding-right: 5px;
+  // padding-left: 5px;
   margin-top: 3px;
 }
-app-like {
-  padding-top: 5px;
-}
+
 button {
   font-family: "times new roman",'Oswald', sans-serif;
-  width: 80px;
+  width: 100px;
   height: 35px;
   margin-top: 3px;
   padding: 3px;
-  background: #E50B13;
   transition: all 1s;
+  transform-origin: 50% 50%;
+  border-radius: 0;
 }
 
 button:hover {
