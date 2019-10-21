@@ -70,12 +70,16 @@ p {
 .main:hover {
   background-color: #f33d4f;
 }
+.container,
+.bottom-container {
+  width: 83%;
+}
 .bottom-container {
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
   background-color: #313133;
-  margin: 80px 195px;
+  margin: 80px 140px;
   padding: 50px;
 }
 @media screen and (max-width: 804px) {
